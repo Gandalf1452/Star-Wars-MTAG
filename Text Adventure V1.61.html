@@ -336,7 +336,18 @@ credits -= 1000;
 document.getElementById("creds").innerHTML = "Credits: " + credits;
 }
 }
-
+function classDark() {
+getNumber()
+if (theNumber == 1) {
+alert("You managed to draw a rogue Jedi to the Dark Side. Your master rewarded you with credits and a ceremonial blade")
+credits += 500
+inventory.push("Ceremonial Blade")
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+}
+else if (theNumber == 2) {
+alert("You hone your skills by taking the trial through the Tomb of Naga Sadow. You find a special lightsaber")
+}
+}
 function doAction() {
 if (classs == "Jedi Knight") {
 classJedi()
