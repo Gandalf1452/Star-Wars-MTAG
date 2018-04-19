@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+   background:#ffffff url("star-wars-battlefront-2.jpg") no-repeat fixed right top; 
+}
+p.demo {
+color: white;
+font-size: 1.2em;}
+
+p.store {
+color: white;
+font-size: 1.0em;
+text-align: right;
+ }
+input.store {
+text-align: right;
+}
+h1 {
+color: green;
+text-align: center;
+font-size: 2.2em;
+font-style: oblique;
+}
+.button {
+background-color: #4caf50;
+border: none;
+color: white;
+padding: 10px 18px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+-webkit-transition-duration: 0.4s;
+transition-duration: 0.4s;
+cursor: pointer;
+}
+.button1 {
+background-color: white;
+color: black;
+border: 2px solid blue;
+}
+.button1:hover {
+background-color: blue;
+color: white;
+}
+.button2 {
+background-color: white;
+color: black;
+border: 2px solid blue;
+}
+.button2:hover {
+background-color: blue;
+color: white;
+}
+input[type=text] {
+width: 20%;}
+</style>
+</head>
+<body>
+
+<h1>Star Wars Text Adventure</h1>
+<button class="button button1" onclick="viewStory()">Story</button>
+<button class="button button1" onclick="startGame()">Start Your Adventure</button>
+<button class="button button1" onclick="displayInventory()">Inventory</button>
+<button class="button button1" onclick="doAction()">Scout & Travel</button><br>
+<input type="text" id="inputs" value="Type number of item to purchase">
+<button class="button button1" onclick="buyItem()">Buy Item</button>
+<p class="demo" id="demo"></p>
+<p class="demo" id="classs"></p>
+<p class="demo" id="creds"></p>
+<p class="demo" id="hp"></p>
+<p class="store" id="stores"></p>
+<p class="store" id="price"></p>
+<p class="store" id="inventory" onmousedown="value()" onmouseup="inv()">Click Here for Store</p>
+
+
+<script>
+/* Comments
+Name: Ryan Hendershot
+Program Purpose: A text adventure Star Wars game with currency,
+inventory, and a shop.
+Program Status: WIP
+Date Last Updated: 12-6-2016
+Update Notes: 1.0: Started coding the arrays for the game as
+well as some variables for a store and the prices, a button and the startGame function.
+1.1: Added background and function to choose a name and class.
+1.2: Added more classes and made buttons more fancy.
+1.3: Added displayInventory and showStore functions to the mix.
+1.4: Made viewing the store much more convenient. 
+1.5: Added buyItem function, which is fully functional.
+1.6: Added some scenarios for various classes. 
+*/
+
+
+
+//Variables
+var name,inventory,health,credits,classs,i, theNumber;
+var items = [
+"Blaster Pistol",
+"Blaster Rifle",
+"Heavy Blaster",
+"Mandalorian Blaster Rifle",
+"Mandalorian Blaster Pistol",
+"Vibroblade",
+"Two-Handed Vibrosword",
+"Lightsaber",
+"Double-Bladed Lightsaber",
+"Combat Suit",
+"Heavy Combat Suit",
+"Sith Armor",
+"Republic Soldier Armor",
+"Mandalorian Scout Armor",
+"Mandalorian Battle Armor",
+"Jedi Robes",
+"Sith Robes",
+"Medpac",
+"Swoop Bike",
+"Ancient Rakatan Armor",
+"Win Token(Automatically win Game)"
+]
+var prices = [150,
+200,
+250,
+600,
+450,
+150,
+275,
+1000,
+1250,
+300,
+500,
+500,
+450,
+800,
+1100,
+600,
+600,
+100,
+3000,
+10000,
+10000]
+var classes = ["Mandalorian Scout",
+"\nMandalorian Warrior",
+"\nJedi Knight",
+"\nDark Jedi",
+"\nSmuggler",
+"\nSith Soldier",
+"\nRepublic Soldier"
+]
+var text = ""
+
+
+//Functions
+function startGame() {
+alert("Welcome to the Star Wars Text Adventure.\nPlease enter your name and choose your class to begin.")
+name = prompt("What is your name?","Random Name")
+if (name != null) {
+document.getElementById("demo").innerHTML = 
+"Name: " + name;
+}
+else {
+alert("Invalid Input")
+}
+ classs = prompt("Select your class\n" + classes,"")
+ if (classs == "Jedi Knight") {
+health = 150;
+credits = 750;
+inventory = ["Lightsaber",
+"Jedi Robes"]
+alert("You are a Jedi Knight sent by the Jedi Council to scout out planets on the Outer Rim with your squad of Padawans.\nYour main objective is to look for Sith Outposts and possible supplies. May the Force be with you.")
+document.getElementById("classs").innerHTML = "Class: Jedi Knight"
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+document.getElementById("hp").innerHTML = "HP: " + health; 
+}
+else if (classs == "Dark Jedi") {
+health = 150;
+credits = 750;
+inventory = ["Lightsaber",
+"Sith Robes"]
+alert("You are a Dark Jedi sent by your Sith Master to hunt down Jedi throughout the galaxy and either kill them or take them prisoner to turn them to your cause.")
+document.getElementById("classs").innerHTML = "Class: Dark Jedi"
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+document.getElementById("hp").innerHTML = "HP: " + health; 
+}  
+else if (classs == "Smuggler") {
+health = 125;
+credits = 500;
+inventory = ["Blaster Pistol",
+"Combat Suit"]
+alert("You are part of a smuggling ring in the core worlds. There are plenty of jobs and the credits are good.\nThe only drawback is that your superiors come often to collect on debt. Maintain constant vigilance on your journies.")
+document.getElementById("classs").innerHTML = "Class: Smuggler"
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+document.getElementById("hp").innerHTML = "HP: " + health; 
+}
+else if (classs == "Sith Soldier") {
+health = 175
+credits = 400
+inventory = ["Blaster Rifle",
+"Sith Armor"]
+alert("As a simple foot soldier, you are part of the mighty Sith Empire.\nYour mission is to travel with your fleet to conquer planets and settlements and leave destruction in your wake.")
+document.getElementById("classs").innerHTML = "Class: Sith Soldier"
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+document.getElementById("hp").innerHTML = "HP: " + health; 
+}
+else if (classs == "Republic Soldier") {
+health = 175
+credits = 400
+inventory = ["Blaster Rifle",
+"Republic Soldier Armor"]
+alert("Part of the Galactic Republic, you are just a simple foot soldier.\nYour job is to just follow orders and defend against the evil Sith Empire.\nYou are able to scout out for settlements or outposts as you go. Good luck against the Sith.")
+document.getElementById("classs").innerHTML = "Class: Republic Soldier"
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+document.getElementById("hp").innerHTML = "HP: " + health; 
+}
+else if (classs == "Mandalorian Scout") {
+health = 175
+credits = 500
+inventory = ["Mandalorian Scout Armor",
+"Mandalorian Blaster Pistol"]
+alert("You are part of one of the many scattered Mandalorian clans throughout the galaxy.\nYou mainly look out for yourself since your clan is scattered,\nlooking for mercenary work that will pay well and possibly look for fellow clan members.")
+document.getElementById("classs").innerHTML = "Class: Mandalorian Scout"
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+document.getElementById("hp").innerHTML = "HP: " + health; 
+}
+else if (classs == "Mandalorian Warrior") {
+health = 200;
+credits = 500;
+inventory = ["Mandalorian Battle Armor",
+"Mandalorian Blaster Pistol"]
+alert("Once a reknowned Mandalorian warrior, you are all but nothing in everybody's eyes.\nAfter the loss of the Mandalorian Wars, your reputation was reduced to dust as the Mandalorian clans became scattered and lost.\nNow, you lead a small group of Mandalorians, raiding small villages and settlements on seemingly harmless worlds.")
+document.getElementById("classs").innerHTML = "Class: Mandalorian Warrior";
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+document.getElementById("hp").innerHTML = "HP: " + health; 
+}
+else {
+alert("Invalid Input, please type in a proper class name")
+location.reload()
+}
+}
+
+function displayInventory() {
+alert(inventory)
+}
+function inv() {
+for (i = 0;i < items.length; i++) {
+  text += i+1 + ". " + items[i] + "<br>";
+  }
+document.getElementById("inventory").innerHTML = text;
+text = "";
+}
+function value() {
+for (i = 0;i < prices.length; i++) {
+  text += i+1 + ". " + prices[i] + "<br>";
+  }
+document.getElementById("inventory").innerHTML = text;
+text = "";
+}
+function buyItem() {
+var userInput = document.getElementById("inputs").value;
+if (credits >= prices[userInput-1]) {
+credits -= prices[userInput-1]
+inventory.push(items[userInput-1])
+alert("You purchased the " + items[userInput-1])
+document.getElementById("creds").innerHTML = "Credits: " + credits
+}
+else {
+alert("Not enough credits")
+}
+}
+function viewStory() {
+alert("The Galaxy is at war. The Sith Lord Darth Revan, the leader of the conquering Sith Empire, has mysteriosly disappeared, leaving his apprentice Darth Malak in his stead as Dark Lord of the Sith. The Republic is fighting for its very existence as the Sith push further into the Core Worlds. This is leaving many of the common people in fear and confusion. In this Jedi Civil War, many different sides are fighting for power in the wake of the Sith Invasion. The question is, who will win?")
+}
+function getNumber() {
+ theNumber = Math.floor(Math.random()*10)+1;
+}
+function classJedi() {
+getNumber()
+if (theNumber == 1) {
+alert("You found a very minor Sith camp. You and your squad took them out without any issues.\nYou also found some credits and a medpac.")
+credits += 100
+inventory.push(items[17])
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+ }
+else if (theNumber == 2) {
+alert("Your ship was attacked by Dark Jedi completely by surprise coming out of hyperspace.\nLuckily, you managed to fend them off and nobody was killed, but you were wounded and some credits were lost mysteriously.")
+credits -= 200;
+health -= 30;
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+document.getElementById("hp").innerHTML = "HP: " + health;
+}
+else if (theNumber == 3) {
+alert("On the neutral water world of Manaan, you sell off a shipment of the healing substance kolto and get a lot of credits in return.")
+credits += 1000;
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+}
+else if (theNumber == 4) {
+alert("You found a very minor Sith camp. You and your squad took them out without any issues.\nYou also found some credits and a medpac.")
+credits += 100;
+inventory.push(items[17])
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+}
+else if (theNumber == 5) {
+alert("You found an abandoned Sith cruiser, which was competely intact.\nYou managed to acquire a lightsaber and some credits while aboard.")
+credits += 200;
+inventory.push(items[7])
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+}
+
+}
+
+function doAction() {
+if (classs == "Jedi Knight") {
+classJedi()
+}
+else if (classs == "Dark Jedi") {
+classDark()
+}
+}
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Main Code
+alert("To whom it may concern, this game is NOT FINISHED, the final product will be finished very soon however.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>
