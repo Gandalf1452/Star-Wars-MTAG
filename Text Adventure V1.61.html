@@ -308,7 +308,33 @@ credits += 200;
 inventory.push(items[7])
 document.getElementById("creds").innerHTML = "Credits: " + credits;
 }
-
+else if (theNumber == 6) {
+alert("While stopping on Coruscant, an assassination was attempted on you!\nYou narrowly escaped, but were wounded in the process.")
+health -= 50;
+document.getElementById("hp").innerHTML = "HP: " + health;
+}
+else if (theNumber == 7) {
+alert("You managed to gather intel on a group of Sith cruisers in hyperspace.\nYou were rewarded with two thousand credits for your troubles.")
+credits += 2000;
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+}
+else if (theNumber == 8) {
+alert("You found an abandoned Sith cruiser, which was competely intact.\nYou managed to acquire a lightsaber and some credits while aboard.")
+credits += 200;
+inventory.push(items[7])
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+}
+else if (theNumber == 9) {
+alert("You hunt down a powerful Dark Jedi and capture him.\nYou take his lightsaber and all his credits for yourself.")
+credits += 400;
+inventory.push(items[7])
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+}
+else if (theNumber == 10) {
+alert("The Galactic Senate is held hostage for ransom by bounty hunters. You are forced to give up 1000 credits to save them")
+credits -= 1000;
+document.getElementById("creds").innerHTML = "Credits: " + credits;
+}
 }
 
 function doAction() {
